@@ -1,5 +1,7 @@
+import os
 import random
 import time
+from pathlib import Path
 
 import selenium.webdriver.common.by
 from selenium import webdriver
@@ -15,6 +17,7 @@ def getRedditPost():
                                   '/html/body/div/div/div/div[2]/div/div/div[2]/pre').text
     data = json.loads(content)
 
+    Path("./temp/").mkdir(exist_ok=True)
     json.dump(content, open("./temp/data.json", "w"))
 
     i = int(((len(data["data"]["children"]) - 1) * random.random()) + 1)
@@ -26,4 +29,5 @@ def getRedditPost():
 
 
 if __name__ == '__main__':
+    print("Grabbing Reddit post")
     getRedditPost()
